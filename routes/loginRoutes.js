@@ -2,7 +2,7 @@ const express = require('express');
 const router =  express.Router();
 
 // controllers require
-var authenticationController = require('../controllers/authenticationController');
+const authenticationController = require('../controllers/authenticationController');
 
 router.post('/user', authenticationController.declareUser,
 authenticationController.checkUser, authenticationController.matchPassword,

@@ -19,5 +19,4 @@ router.get('/auth/google/callback', googleAuthController.requestTokenID, (req, r
     })
 });
 
-
 module.exports = router;

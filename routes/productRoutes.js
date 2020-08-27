@@ -2,7 +2,7 @@ const express = require('express');
 const router =  express.Router();
 
 // controllers require
-var productController = require('../controllers/productController');
+const productController = require('../controllers/productController');
 
 router.put('/entry', productController.productEntry, (req, res, next) => {
     res.send({

@@ -58,9 +58,6 @@ const displayProducts = (req, res, next) => {
 /*product image upload*/
 
 
-
-
-
 module.exports = {
     productEntry,
     getProducts,

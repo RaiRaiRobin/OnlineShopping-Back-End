@@ -147,27 +147,6 @@ const tokenUpdate = (req, res, next) => {
 }
 
 
-// const updateToken = (req, res, next) => {
-//     if (req.body.refreshToken == null) return res.sendStatus(401)
-//     active_user.findOne({
-//         where: { refresh_token: req.body.refreshToken }
-//     })
-//     .then(result => {
-//         if(result){
-//             jwt.verify(req.body.refreshToken, process.env.REFRESH_TOKEN_SECRET, function(err, user){
-//                 if (err) return res.sendStatus(403);
-//                 req.accessToken = jwt.sign(
-//                     { email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '60s' })
-//             })
-//             next();
-//         }else return res.sendStatus(403)
-//     })
-//     .catch(function(err) {
-//         next({ "status": 500, "message": "DB Error" });
-//     })
-// }
-
-
 const getUserID = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -185,6 +164,7 @@ const getUserID = (req, res, next) => {
         });
     }
 }
+
 
 const delrefreshToken = (req, res, next) => {
     active_user.destroy({
