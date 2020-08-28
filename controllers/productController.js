@@ -38,7 +38,8 @@ const displayProducts = (req, res, next) => {
     mySeq.sequelize.query(
         'SELECT id, product_name AS productName, category, price, description\
         FROM products\
-        WHERE category = "'+req.params.productCategory+'";',
+        WHERE category = "'+req.params.productCategory+'"\
+        ORDER BY id ASC LIMIT 5;',
         { type: mySeq.sequelize.QueryTypes.SELECT })
         .then(result => {
             res.status(200)

@@ -33,6 +33,7 @@ require('./models/customerModel')
 require('./models/activeUserModel');
 require('./models/productModel');
 require('./models/productStatsModel');
+require('./models/categoryModel');
 
 
 //routes
@@ -53,6 +54,9 @@ myapp.use('/', googleRoutes);
 
 const productRoutes = require('./routes/productRoutes');
 myapp.use('/products', productRoutes);
+
+const categoryRoutes = require('./routes/categoryRoutes');
+myapp.use('/category', categoryRoutes);
 
 //openid authentication with passport.js and express
 const passport = require('passport');
