@@ -23,9 +23,7 @@ router.get('/getProducts', productController.getProducts, (req, res, next) => {
 router.get('/displayProducts/:productCategory/:currPosition/:range', productController.displayProducts, (req, res, next) => {
     res.status(200);
     res.send({
-        "products": req.productList,
-        "leftPosition": req.position[0],
-        "rightPosition": req.position[1]
+        "products": req.productList
     })
 })
 
