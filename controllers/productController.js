@@ -39,12 +39,38 @@ const displayProducts = (req, res, next) => {
         'SELECT id, product_name AS productName, category, price, description\
         FROM products\
         WHERE category = "'+req.params.productCategory+'"\
-        ORDER BY id ASC LIMIT 5;',
+        ORDER BY id;',
         { type: mySeq.sequelize.QueryTypes.SELECT })
         .then(result => {
+            let pos = req.params.currPosition - 1;
+            let range = req.params.range;
+            let data = [];
+            let position = [];
+            if(range > 0){
+                let count = 0;
+                position[0] = pos+1;
+                while(count < Math.abs(range)){
+                    data.push(result[pos]);
+                    count = count + 1;
+                    if(pos < result.length - 1) pos = pos+1;
+                    else pos = 0;
+                }
+                position[1] = pos+1;
+            }
+            else if(range < 0){
+                let count = 0;
+                position[1] = pos+1;
+                while(count < Math.abs(range)){
+                    data.push(result[pos]);
+                    count = count + 1;
+                    if(pos != 0) pos = pos-1;
+                    else pos = result.length - 1;
+                }
+                position[0] = pos+1;
+            }
             res.status(200)
-            // res.json(result);
-            req.productList = result;
+            req.productList = data;
+            req.position = position;
             next();
         }).catch(err => {
             next({ "status": 500, "message": err });
