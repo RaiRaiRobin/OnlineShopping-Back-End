@@ -43,28 +43,20 @@ const displayProducts = (req, res, next) => {
         { type: mySeq.sequelize.QueryTypes.SELECT })
         .then(result => {
             let pos = req.params.currPosition - 1;
-            let range = req.params.range;
+            let upperLimit = parseInt(req.params.range) + pos;
             let data = [];
-            if(range > 0){
-                let count = 0;
-                while(count < Math.abs(range)){
-                    data.push(result[pos]);
-                    count = count + 1;
-                    if(pos < result.length - 1) pos = pos+1;
-                    else pos = 0;
+            let dataFinish = false;
+            while(pos < upperLimit){
+                data.push(result[pos]);
+                if (pos+1 > result.length-1){
+                    dataFinish = true;
+                    break;
                 }
-            }
-            else if(range < 0){
-                let count = 0;
-                while(count < Math.abs(range)){
-                    data.push(result[pos]);
-                    count = count + 1;
-                    if(pos != 0) pos = pos-1;
-                    else pos = result.length - 1;
-                }
-            }
+                pos = pos + 1;
+            } 
             res.status(200)
             req.productList = data;
+            req.dataFinish = dataFinish;
             next();
         }).catch(err => {
             next({ "status": 500, "message": err });

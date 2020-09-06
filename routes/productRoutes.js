@@ -23,7 +23,8 @@ router.get('/getProducts', productController.getProducts, (req, res, next) => {
 router.get('/displayProducts/:productCategory/:currPosition/:range', productController.displayProducts, (req, res, next) => {
     res.status(200);
     res.send({
-        "products": req.productList
+        "products": req.productList,
+        "productEnd": req.dataFinish
     })
 })
 
