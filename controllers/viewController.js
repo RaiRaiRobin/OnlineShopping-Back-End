@@ -79,7 +79,7 @@ const viewModalContact = (req, res, next) => {
         .then(function (result) {
             let emailData = {
                 "from": "info@intelligenceforecast.com",
-                "to": "rai.robin1000@gmail.com",
+                "to": "abdullah@intelligenceforecast.com",
                 "subject": "Speak to us data",
                 "html": "<h3>Name: " + req.body.quoteName + "</h3></br><h3>Email: " + req.body.userEmail + "</h3></br><h3>Contact: " + req.body.userPhone + "</h3></br><h3>City/Country: " + req.body.userAddress + "</h3></br><h3>Project type: " + req.body.projectType + "</h3></br><h3>Budget: " + req.body.quoteBudget + "</h3></br><h3>detail: " + req.body.userMessage + "</h3></br><h3>Contact by phone: " + req.body.contactByPhone + "</h3>"
             }
