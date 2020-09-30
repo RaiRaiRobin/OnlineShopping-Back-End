@@ -23,6 +23,10 @@ myapp.use(express.static(
     path.join(__dirname, '/resources/public')
 ));
 
+// ejs
+myapp.set('views', __dirname + '/views');
+myapp.set('view engine', 'ejs');
+
 // sequelize database
 require('./configs/dbconfigs.js');
 
@@ -34,6 +38,8 @@ require('./models/activeUserModel');
 require('./models/productModel');
 require('./models/productStatsModel');
 require('./models/categoryModel');
+require('./models/viewContactModel');
+require('./models/viewModalContactModel');
 
 
 //routes
@@ -50,7 +56,7 @@ const logoutRoutes = require('./routes/logoutRoutes');
 myapp.use('/logout', logoutRoutes);
 
 const googleRoutes = require('./routes/googleRoutes');
-myapp.use('/', googleRoutes);
+myapp.use('/google', googleRoutes);
 
 const productRoutes = require('./routes/productRoutes');
 myapp.use('/products', productRoutes);
@@ -58,11 +64,16 @@ myapp.use('/products', productRoutes);
 const categoryRoutes = require('./routes/categoryRoutes');
 myapp.use('/category', categoryRoutes);
 
-//openid authentication with passport.js and express
+const viewRoutes = require('./routes/viewRoutes');
+myapp.use('/views', viewRoutes);
+
+const viewEjs = require('./routes/viewEjsRoutes');
+myapp.use('/', viewEjs);
+
+// openid authentication with passport.js and express
 const passport = require('passport');
 myapp.use(passport.initialize());
 myapp.use(passport.session());
-
 
 // error handler
 myapp.use(function(err, req, res, next) {
@@ -73,13 +84,12 @@ myapp.use(function(err, req, res, next) {
     })
 })
 
-const http = require('http');
-const server = http.createServer(myapp);
+// const http = require('http');
+// const server = http.createServer(myapp);
 
-myapp.get('/', (req, res) => { res.send('This is a secure server') });
+// myapp.get('/', (req, res) => { res.send('This is a secure server') });
 
-server.listen(3000, () => console.log('Server started on port 3000'));
-
+myapp.listen(3000, () => console.log('Server started on port 3000'));
 
 module.exports = myapp; 
     
